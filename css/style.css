@@ -1,18 +1,25 @@
-/******************************************
-/* CSS
-/*******************************************/
-
 /* Box Model Hack */
-*{
+* {
   box-sizing: border-box;
 }
 
-/******************************************
-/* LAYOUT
-/*******************************************/
+/* Layout */
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* Map Styling */
+#map {
+  width: 90vw;
+  height: 80vh;
+  background: grey;
+}
 
-
-
-/******************************************
-/* ADDITIONAL STYLES
-/*******************************************/
+/* marker styling */
+/* soak */
+.soak {
+  color: #3030bd;
+  fill: #3030bd;
+}
