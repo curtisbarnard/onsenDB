@@ -1,5 +1,5 @@
 import { key } from './key.js';
-import { publicSpringsArray } from './publicSprings.js';
+import { idahoPublicSprings } from './publicSprings.js';
 import { privateSpringsArray } from './privateSprings.js';
 
 // initialize map and default view
@@ -15,15 +15,16 @@ const layer = new L.TileLayer(tileUrl, {
 });
 map.addLayer(layer);
 
-// add groups to map for public and private
-const publicSprings = L.layerGroup(publicSpringsArray).addTo(map);
-const privateSprings = L.layerGroup(privateSpringsArray);
+// Stuff to do to every geoJSON that get's added to the map
+function onEachFeature(feature, layer) {
+  // does this feature have a property named popupContent?
+  if (feature.properties && feature.properties.popupContent) {
+    layer.bindPopup(feature.properties.popupContent);
+  }
+}
 
-//prettier-ignore
-const overlayMaps = {
-  "Public": publicSprings,
-  "Private": privateSprings,
-};
-const layerControl = L.control
-  .layers(null, overlayMaps, { collapsed: false })
-  .addTo(map);
+let publicSpringsLayer = L.geoJSON(idahoPublicSprings, {
+  onEachFeature: onEachFeature,
+}).addTo(map);
+
+// publicSpringsLayer.addData(coveCreek);
