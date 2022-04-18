@@ -1,4 +1,6 @@
 import { key } from './key.js';
+import { publicSpringsArray } from './publicSprings.js';
+import { privateSpringsArray } from './privateSprings.js';
 
 // initialize map and default view
 const map = L.map('map').setView([44.250314546543244, -114.84177337198135], 13);
@@ -13,12 +15,15 @@ const layer = new L.TileLayer(tileUrl, {
 });
 map.addLayer(layer);
 
-// Data Points
-// Boat Box
-44.24479071752023, -114.88604293759461;
-const circle = L.circle([44.24479071752023, -114.88604293759461], {
-  color: '#3030bd',
-  fillcolor: '#3030bd',
-  fillOpacity: 1,
-  radius: 50,
-}).addTo(map);
+// add groups to map for public and private
+const publicSprings = L.layerGroup(publicSpringsArray).addTo(map);
+const privateSprings = L.layerGroup(privateSpringsArray);
+
+//prettier-ignore
+const overlayMaps = {
+  "Public": publicSprings,
+  "Private": privateSprings,
+};
+const layerControl = L.control
+  .layers(null, overlayMaps, { collapsed: false })
+  .addTo(map);
