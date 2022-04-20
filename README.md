@@ -20,4 +20,4 @@ Thanks for your interests in contributing to the project! There are several ways
 - CSS3
 - JavaScript
 - [Leaflet JS](https://github.com/Leaflet/Leaflet)
-- [Stamen Map Tiles](http://maps.stamen.com/)
+- [Stamen Map Tiles](https://github.com/stamen/terrain-classic)
