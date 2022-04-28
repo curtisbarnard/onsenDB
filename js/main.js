@@ -1,9 +1,8 @@
-import { key } from './key.js';
 import { idahoPublicSprings } from './publicSprings.js';
 import { privateSpringsArray } from './privateSprings.js';
 
 // initialize map and default view
-const map = L.map('map').setView([44.250314546543244, -114.84177337198135], 13);
+// const map = L.map('map').setView([44.250314546543244, -114.84177337198135], 13);
 
 // Load tiles
 const tileUrl = `https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg`;
@@ -26,5 +25,3 @@ function onEachFeature(feature, layer) {
 let publicSpringsLayer = L.geoJSON(idahoPublicSprings, {
   onEachFeature: onEachFeature,
 }).addTo(map);
-
-// publicSpringsLayer.addData(coveCreek);

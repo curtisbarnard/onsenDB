@@ -4,10 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="title" content="onsenDB" />
-    <meta name="description"
-      content="Explore hot springs and geothermal features, the most perplexing natural wonders of the world!. Open Source database and map of all the worlds hot springs." />
-    <meta name="keywords"
-      content="hot spring, hot springs, geothermal feature, geothermal features, best hot spring, hot springs in the world" />
+    <meta
+      name="description"
+      content="Explore hot springs and geothermal features, the most perplexing natural wonders of the world!. Open Source database and map of all the worlds hot springs."
+    />
+    <meta
+      name="keywords"
+      content="hot spring, hot springs, geothermal feature, geothermal features, best hot spring, hot springs in the world"
+    />
 
     <title>onsenDB</title>
 
@@ -30,10 +34,23 @@
     ></script>
   </head>
   <body>
-    <header>
-      <div>onsenDB</div>
-      <h1>an Open Source database and map of all the worlds hot springs</h1>
-    </header>
+    <section class="splashBackground">
+      <section class="container">
+        <img src="img/github-1.svg" alt="github icon" />
+        <h1>onsenDB</h1>
+        <form action="">
+          <input type="search" placeholder="Type a hot spring name" />
+          <button type="submit">Explore</button>
+        </form>
+        <p>an open source project to map the world's hot springs</p>
+        <p class="attribution">
+          Image provided by
+          <a href="https://unsplash.com/@spencerdavis" target="_blank"
+            >Spencer Davis</a
+          >
+        </p>
+      </section>
+    </section>
     <div id="map"></div>
     <script type="module" src="js/main.js"></script>
   </body>
