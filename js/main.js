@@ -6,12 +6,12 @@ import { privateSpringsArray } from './privateSprings.js';
 const map = L.map('map').setView([44.250314546543244, -114.84177337198135], 13);
 
 // Load tiles
-const tileUrl = `https://tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey=${key}`;
+const tileUrl = `https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg`;
 const layer = new L.TileLayer(tileUrl, {
   attribution:
-    'Maps &copy; <a href="http://www.thunderforest.com">Thunderforest</a>, Data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> contributors',
+    'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>',
   maxZoom: 18,
-  id: 'thunderforest/outdoors',
+  id: 'stamen/terrain',
 });
 map.addLayer(layer);
 
