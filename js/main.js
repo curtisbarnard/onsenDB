@@ -2,7 +2,7 @@ import { idahoPublicSprings } from './publicSprings.js';
 import { privateSpringsArray } from './privateSprings.js';
 
 // initialize map and default view
-// const map = L.map('map').setView([44.250314546543244, -114.84177337198135], 13);
+const map = L.map('map').setView([44.13361285930608, -117.6060711797403], 9);
 
 // Load tiles
 const tileUrl = `https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg`;
