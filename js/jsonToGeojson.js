@@ -1,10 +1,23 @@
-export const springs = [];
+export const springsArray = [];
 
 // geoJSON class
 class Spring {
-  constructor(country, adminDiv, lat, long, name, type, tempF, access, fee) {
+  constructor(
+    id,
+    country,
+    adminDiv,
+    lat,
+    long,
+    name,
+    type,
+    tempF,
+    access,
+    fee,
+    externalLink
+  ) {
     this.type = 'Feature';
     (this.properties = {
+      id,
       location: {
         country,
         adminDiv,
@@ -16,6 +29,7 @@ class Spring {
       tempF,
       access,
       fee,
+      externalLink,
       popupContent: `
       <h4>${name}</h4>
       ${access ? access : ''}<br>
@@ -25,7 +39,7 @@ class Spring {
     }),
       (this.geometry = {
         type: 'Point',
-        coordinates: [lat, long],
+        coordinates: [long, lat],
       });
   }
 }
@@ -33,6 +47,29 @@ class Spring {
 // fetch json data from file
 export async function getJSONData() {
   const response = await fetch('datasets/NCEI-USA-Dataset.json');
-  const springs = response.json();
-  console.log(springs);
+  const springsData = await response.json();
+  addSpringsToArray(springsData);
+  return springsArray;
 }
+
+// create spring objects and add to array
+function addSpringsToArray(springsData) {
+  for (let springItem of springsData) {
+    const testSpring = new Spring(
+      springItem.id,
+      springItem.country,
+      springItem.stateCode,
+      springItem.latitude,
+      springItem.longitude,
+      springItem.springName,
+      springItem.type,
+      springItem.tempF,
+      springItem.access,
+      springItem.fee,
+      springItem.externalLink
+    );
+    springsArray.push(testSpring);
+  }
+}
+
+// TODO filtering number of springs maybe only show x amount? only show what is in the window? Clusters? What is the most efficient way?
