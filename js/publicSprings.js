@@ -1,11 +1,5 @@
 export const idahoPublicSprings = [];
 
-// TODO add additional classes
-// TODO add state and country property
-// TODO conditional for public vs. private vs. TBD
-// TODO conditional for soakable vs tbd
-// TODO conditonal for temperate
-// TODO conditional for URL
 class Spring {
   constructor(name, access, externalResource, coordinates) {
     this.type = 'Feature';

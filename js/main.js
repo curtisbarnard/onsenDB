@@ -1,5 +1,5 @@
 import { idahoPublicSprings } from './publicSprings.js';
-import { privateSpringsArray } from './privateSprings.js';
+import { getJSONData } from './jsonToGeojson.js';
 
 // initialize map and default view
 const map = L.map('map').setView([44.13361285930608, -117.6060711797403], 9);
@@ -25,3 +25,5 @@ function onEachFeature(feature, layer) {
 let publicSpringsLayer = L.geoJSON(idahoPublicSprings, {
   onEachFeature: onEachFeature,
 }).addTo(map);
+
+getJSONData();
