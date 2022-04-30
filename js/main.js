@@ -1,10 +1,26 @@
-import { getJSONData, springsArray } from './jsonToGeojson.js';
+import { getJSONData } from './jsonToGeojson.js';
 
-// default view GPS coordinates
-let defaultView = [38.63426085586347, -105.9848419384307];
+// initialize map object
+const map = L.map('map');
 
-// initialize map and default view
-const map = L.map('map').setView(defaultView, 11);
+// set map view
+function setMapView(lat, long) {
+  map.setView([lat, long], 10);
+}
+
+function getUserLocation() {
+  const success = (position) => {
+    setMapView(position.coords.latitude, position.coords.longitude);
+  };
+  const error = () => {
+    // default view if no location access
+    setMapView(38.63426085586347, -105.9848419384307);
+    alert('You will have to manually search for a spring');
+  };
+  navigator.geolocation.getCurrentPosition(success, error);
+}
+
+getUserLocation();
 
 // Load tiles
 const tileUrl = `https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg`;
@@ -23,10 +39,6 @@ function onEachFeature(feature, layer) {
     layer.bindPopup(feature.properties.popupContent);
   }
 }
-
-// let publicSpringsLayer = L.geoJSON(idahoPublicSprings, {
-//   onEachFeature: onEachFeature,
-// }).addTo(map);
 
 async function mapPoints() {
   const data = await getJSONData();
