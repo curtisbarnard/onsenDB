@@ -52,24 +52,45 @@ function clearPoints() {
   map.removeLayer(springsLayer);
 }
 
+// get Json on page load
+async function enableAutoComplete() {
+  let data = await getJSONData();
+  // event listener on input
+  const search = document.querySelector('.container input');
+  search.addEventListener('input', () => autoComplete(search.value, data));
+}
+enableAutoComplete();
+
 // searching data for autocomplete matches
-async function autoComplete(string) {
-  const data = await getJSONData();
-  let matches = [];
-  const regex = new RegExp(string, 'gi');
-  for (let item of data) {
-    if (regex.test(item.properties.name)) {
-      matches.push(item);
-    }
-    if (matches.length > 9) {
-      break;
-    }
+function autoComplete(string, data) {
+  let matches = data.filter((spring) => {
+    const regex = new RegExp(string, 'gi');
+    return spring.properties.name?.match(regex);
+  });
+  if (string.length === 0) {
+    matches = [];
+    document.querySelector('.autocomplete-list').innerHTML = '';
   }
   console.log(matches);
-  mapPoints(matches);
+  writeToDOM(matches);
+  // clear autocomplete list when input is empty
 }
 
-// event listener on input
-const search = document.querySelector('.container input');
-search.addEventListener('input', () => autoComplete(search.value));
 // write results to dom
+function writeToDOM(matches) {
+  document.querySelector('.autocomplete-list').innerHTML = '';
+  if (matches.length > 0) {
+    const html = matches.map((obj) => {
+      return `
+        <div class="autocomplete-item">
+          <h2>${obj.properties.name}</h2>
+          <span>${obj.properties.location.adminDiv}, ${obj.properties.location.country}</span>
+        </div>
+              `;
+    });
+    html.unshift(`
+    <div class="autocomplete-header"></div>
+    `);
+    document.querySelector('.autocomplete-list').innerHTML = html.join('');
+  }
+}
