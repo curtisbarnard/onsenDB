@@ -1,7 +1,10 @@
 import { getJSONData, springsArray } from './jsonToGeojson.js';
 
+// default view GPS coordinates
+let defaultView = [38.63426085586347, -105.9848419384307];
+
 // initialize map and default view
-const map = L.map('map').setView([44.13361285930608, -117.6060711797403], 9);
+const map = L.map('map').setView(defaultView, 11);
 
 // Load tiles
 const tileUrl = `https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg`;
