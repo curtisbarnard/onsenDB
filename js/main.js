@@ -27,7 +27,7 @@ const tileUrl = `https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg`;
 const layer = new L.TileLayer(tileUrl, {
   attribution:
     'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>',
-  maxZoom: 18,
+  maxZoom: 15,
   id: 'stamen/terrain',
 });
 map.addLayer(layer);
@@ -40,12 +40,36 @@ function onEachFeature(feature, layer) {
   }
 }
 
-async function mapPoints() {
-  const data = await getJSONData();
-  console.log(data);
+// Mapping data points
+function mapPoints(data) {
   let springsLayer = L.geoJSON(data, {
     onEachFeature: onEachFeature,
   }).addTo(map);
 }
 
-mapPoints();
+// Clear points on map
+function clearPoints() {
+  map.removeLayer(springsLayer);
+}
+
+// searching data for autocomplete matches
+async function autoComplete(string) {
+  const data = await getJSONData();
+  let matches = [];
+  const regex = new RegExp(string, 'gi');
+  for (let item of data) {
+    if (regex.test(item.properties.name)) {
+      matches.push(item);
+    }
+    if (matches.length > 9) {
+      break;
+    }
+  }
+  console.log(matches);
+  mapPoints(matches);
+}
+
+// event listener on input
+const search = document.querySelector('.container input');
+search.addEventListener('input', () => autoComplete(search.value));
+// write results to dom

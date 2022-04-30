@@ -1,4 +1,4 @@
-export const springsArray = [];
+const springsArray = [];
 
 // geoJSON class
 class Spring {
@@ -32,9 +32,9 @@ class Spring {
       externalLink,
       popupContent: `
       <h4>${name}</h4>
-      ${access ? access : ''}<br>
-      Fee: $${fee ? fee : 'Unknown'}<br>
-      Temperature: ${tempF}F<br>
+      Access: ${access ? access : 'Unknown'}<br>
+      Fee: ${fee ? '$' + fee : 'Unknown'}<br>
+      Temperature: ${tempF > 0 ? tempF + 'F' : 'Unknown'}<br>
       `,
     }),
       (this.geometry = {
