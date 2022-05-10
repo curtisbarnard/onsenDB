@@ -71,9 +71,8 @@ function autoComplete(string, data) {
     matches = [];
     document.querySelector('.autocomplete-list').innerHTML = '';
   }
-  console.log(matches);
   writeToDOM(matches);
-  // clear autocomplete list when input is empty
+  autoCompleteListListeners(matches);
 }
 
 // write results to dom
@@ -82,7 +81,7 @@ function writeToDOM(matches) {
   if (matches.length > 0) {
     const html = matches.map((obj) => {
       return `
-        <div class="autocomplete-item">
+        <div class="autocomplete-item" data-id="${obj.properties.id}">
           <h2>${obj.properties.name}</h2>
           <span>${obj.properties.location.adminDiv}, ${obj.properties.location.country}</span>
         </div>
@@ -95,4 +94,27 @@ function writeToDOM(matches) {
   }
 }
 
+// Add event listeners on autocomplete divs
+function autoCompleteListListeners(autoCompMatches) {
+  const listItems = document.querySelectorAll('.autocomplete-item');
+  for (let item of listItems) {
+    // user clicks on autocomplete div
+    item.addEventListener('click', (e) => {
+      // clear auto complete list
+      document.querySelector('.autocomplete-list').innerHTML = '';
+      // get coordinates from object
+      const clickedSpring = autoCompMatches.filter(
+        (item) => item.properties.id === e.currentTarget.getAttribute('data-id')
+      );
+      console.log(
+        clickedSpring[0].properties.location.lat,
+        clickedSpring[0].properties.location.long
+      );
+    });
+  }
+}
+
 // TODO Might need to limit results of autocomplete on mobile as it overlaps with the map in an odd way
+
+// scroll down to map
+// plot point that was clicked onto map
