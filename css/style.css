@@ -45,21 +45,20 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-end;
+}
+.container main {
+  align-self: center;
+  height: 225px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 }
-.container > a,
-.container .attribution {
-  align-self: flex-end;
-}
-
-.container > a {
-  flex-basis: 30%;
-}
-.container .attribution {
-  flex-basis: 35%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+@media all and (min-width: 500px) {
+  .container main {
+    height: 325px;
+  }
 }
 
 /* Typgoraphy */
@@ -67,13 +66,14 @@ body {
   color: #fff;
 }
 h1 {
-  font-size: 12.8rem;
+  font-size: 8.2rem;
   font-weight: 500;
   letter-spacing: -0.15em;
 }
 .container p {
   font-size: 1.8rem;
-  font-weight: 600;
+  font-weight: 500;
+  text-align: center;
 }
 .container .attribution {
   font-size: 1.4rem;
@@ -85,15 +85,21 @@ h1 {
   text-decoration: none;
 }
 
+@media all and (min-width: 500px) {
+  h1 {
+    font-size: 12.8rem;
+  }
+}
 /* Forms */
 form {
   white-space: nowrap;
+  width: 100%;
 }
 form input {
   position: relative;
   z-index: 9;
-  width: 525px;
-  height: 50px;
+  width: calc(100% - 100px);
+  height: 40px;
   border: none;
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
@@ -104,15 +110,15 @@ form input {
 form button {
   position: relative;
   z-index: 9;
-  width: 125px;
-  height: 50px;
+  width: 100px;
+  height: 40px;
   border: none;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
   background-color: var(--secondary-color);
   font-family: var(--baseFont);
   font-size: 1.8rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #fff;
   padding: 0;
 }
@@ -156,17 +162,6 @@ form button:hover {
 /* Map Styling */
 #map {
   width: 100vw;
-  height: 100vh;
+  height: 95vh;
   background: grey;
-}
-
-/* marker styling */
-/* soak */
-.soak {
-  color: #3030bd;
-  fill: #3030bd;
-}
-.private {
-  color: #7272ff;
-  fill: #7272ff;
 }

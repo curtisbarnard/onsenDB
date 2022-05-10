@@ -94,3 +94,5 @@ function writeToDOM(matches) {
     document.querySelector('.autocomplete-list').innerHTML = html.join('');
   }
 }
+
+// TODO Might need to limit results of autocomplete on mobile as it overlaps with the map in an odd way
