@@ -1,4 +1,5 @@
-# onsenDB
+![onsenDB (1)](https://user-images.githubusercontent.com/100104319/167699176-c4e8ebfd-bb58-4fb2-bbde-392b29e77a53.png)
+
 Whether your aim is to let your daily worries float away or you want to visit some of the most perplexing natural wonders of the world, onsenDB is for you! onsenDB began as a personal project to map all the great hot springs that I have visited, but soon morphed to something much larger once I realized what public information was available. Join me in building the most comprehensive database of hot springs on the web.
 
 ## Web Design
