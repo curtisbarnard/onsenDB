@@ -121,7 +121,7 @@ function autoCompleteListListeners(autoCompMatches) {
         clickedSpring[0].properties.location.long
       );
       // scroll down to map
-      // window.scrollBy(0, window.innerHeight);
+      window.scrollBy(0, window.innerHeight);
     });
   }
 }

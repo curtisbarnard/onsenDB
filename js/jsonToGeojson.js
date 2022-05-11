@@ -58,7 +58,7 @@ function addSpringsToArray(springsData) {
     const testSpring = new Spring(
       springItem.id,
       springItem.country,
-      springItem.stateCode,
+      springItem.adminDiv,
       springItem.latitude,
       springItem.longitude,
       springItem.springName,
