@@ -65,7 +65,14 @@ enableAutoComplete();
 function autoComplete(string, data) {
   let matches = data.filter((spring) => {
     const regex = new RegExp(string, 'gi');
-    return spring.properties.name?.match(regex);
+    return (
+      // filtering the spring names
+      spring.properties.name?.match(regex) ||
+      // filter administrative division (aka state)
+      spring.properties.location.adminDiv?.match(regex) ||
+      // filter country
+      spring.properties.location.country?.match(regex)
+    );
   });
   if (string.length === 0) {
     matches = [];
@@ -106,15 +113,17 @@ function autoCompleteListListeners(autoCompMatches) {
       const clickedSpring = autoCompMatches.filter(
         (item) => item.properties.id === e.currentTarget.getAttribute('data-id')
       );
-      console.log(
+      // plot point that was clicked onto map
+      mapPoints(clickedSpring[0]);
+      // move map to center on clicked spring
+      setMapView(
         clickedSpring[0].properties.location.lat,
         clickedSpring[0].properties.location.long
       );
+      // scroll down to map
+      // window.scrollBy(0, window.innerHeight);
     });
   }
 }
 
 // TODO Might need to limit results of autocomplete on mobile as it overlaps with the map in an odd way
-
-// scroll down to map
-// plot point that was clicked onto map
