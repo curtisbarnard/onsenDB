@@ -57,10 +57,15 @@ async function enableAutoComplete() {
   let data = await getJSONData();
   // event listener on input
   const search = document.querySelector('.container input');
+  const searchButton = document.querySelector('.splashBackground main button');
   search.addEventListener('input', () => autoComplete(search.value, data));
+  // listen for explore button click
+  // when button is clicked grab GPS coords from input
+  searchButton.addEventListener('click', () => gpsSearch(search.value, data));
 }
 enableAutoComplete();
 
+// ----------------------AUTO COMPLETE--------------------
 // searching data for autocomplete matches
 function autoComplete(string, data) {
   let matches = data.filter((spring) => {
@@ -127,3 +132,64 @@ function autoCompleteListListeners(autoCompMatches) {
 }
 
 // TODO Might need to limit results of autocomplete on mobile as it overlaps with the map in an odd way
+
+// ----------------------SEARCH BY GPS COORDS----------------------------
+
+function gpsSearch(inputString, data) {
+  let inputCoords = [];
+  if (inputString.includes('°')) {
+    inputCoords = parseDMS(inputString);
+  } else {
+    inputCoords = inputString.split(', ');
+  }
+  // map 10 closest hot springs
+  mapPoints(tenClosest(inputCoords[0], inputCoords[1], data));
+  // move map to center on input coords
+  setMapView(...inputCoords);
+  // scroll down to map
+  window.scrollBy(0, window.innerHeight);
+}
+
+// parse GPS if input in DMS instead of DD
+function parseDMS(gpsString) {
+  const gpsParts = gpsString.split(/[^\w.]+/);
+  const latDD = convertDMStoDD(
+    gpsParts[0],
+    gpsParts[1],
+    gpsParts[2],
+    gpsParts[3]
+  );
+  const longDD = convertDMStoDD(
+    gpsParts[4],
+    gpsParts[5],
+    gpsParts[6],
+    gpsParts[7]
+  );
+  return [latDD, longDD];
+}
+
+// convert DMS coordinates to DD coordinates
+function convertDMStoDD(deg, min, sec, dir) {
+  let dd = +deg + +min / 60 + +sec / (60 * 60);
+  // flip if coord is in South or West
+  if (dir === 'S' || dir === 'W') {
+    dd *= -1;
+  }
+  return dd;
+}
+
+// Sort data and get 10 closest springs
+function tenClosest(inputLat, inputLong, data) {
+  // Sort all springs by distance to input coords
+  // --close springs will minimize (input lat - spring lat) + (input long - spring long)
+  data.sort((a, b) => {
+    const aLatDifference = Math.abs(inputLat - a.properties.location.lat);
+    const aLongDifference = Math.abs(inputLong - a.properties.location.long);
+    const aTotalDifference = aLatDifference + aLongDifference;
+    const bLatDifference = Math.abs(inputLat - b.properties.location.lat);
+    const bLongDifference = Math.abs(inputLong - b.properties.location.long);
+    const bTotalDifference = bLatDifference + bLongDifference;
+    return aTotalDifference - bTotalDifference;
+  });
+  return data.slice(0, 10);
+}
