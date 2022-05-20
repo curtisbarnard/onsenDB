@@ -11,6 +11,10 @@ function setMapView(lat, long) {
 function getUserLocation() {
   const success = (position) => {
     setMapView(position.coords.latitude, position.coords.longitude);
+    L.marker([position.coords.latitude, position.coords.longitude])
+      .addTo(map)
+      .bindPopup("Your current location.")
+      .openPopup();
   };
   const error = () => {
     // default view if no location access
